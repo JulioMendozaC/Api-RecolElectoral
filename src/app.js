@@ -4,6 +4,8 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import { connectDB } from './db.js'
+import { URL_FORNT } from './config.js'
+
 import authRoutes from './routes/auth.routes.js'
 import dataRoutes from './routes/data.routes.js'
  
@@ -12,7 +14,7 @@ const app = express()
 connectDB()
 
 app.use(cors({
-    origin: 'http://localhost:1420',
+    origin: URL_FORNT,
     credentials: true
 
 }));
