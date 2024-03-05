@@ -3,8 +3,7 @@ import User from '../models/user.medel.js'
 import bcrypt from 'bcryptjs'
 import { CreateAccessToken } from '../libs/jwt.js'
 import jwt from "jsonwebtoken";
-import {TOKEN_SECRET} from "../config.js";
-
+import 'dotenv/config'
 
 export const register = async (req, res) => {
 
@@ -93,7 +92,7 @@ export const profile = async (req, res) => {
   export const verifyToken = async (req, res) => {
     const {token} = req.cookies;
   
-    jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+    jwt.verify(token, process.env.TOKEN_SECRET, async (err, user) => {
       if (err) return res.status(401).json({message: "Unauthorized"});
   
       const userFound = await User.findById(user.id);
