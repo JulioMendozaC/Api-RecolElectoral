@@ -60,17 +60,14 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = await CreateAccessToken({
-      id: userFound._id,
-      username: userFound.username,
-    });
+    const token = await CreateAccessToken({id: userFound._id});
 
- 
+    res.cookie("token", token);
     res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
-    });
+    })
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
