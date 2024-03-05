@@ -14,8 +14,12 @@ const app = express()
 connectDB()
 
 app.use(cors({
-    origin: process.env.URL_FORNT,
-    credentials: true
+    // origin: process.env.URL_FORNT,
+    credentials: true,
+    headers: {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',   
+    }
 
 }));
 app.use(morgan('dev'))
