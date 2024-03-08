@@ -12,11 +12,15 @@ export const createPromotor = async (req, res) => {
         const { nombre } = req.body
         const newData = new Promotor({ nombre })
         const saveDate = await newData.save()
+        const promotor = await Promotor.find()
 
         res.json({
-            msg: ['Promotor Creado', [saveDate]]
+            msg: ['Promotor Creado'],
+            data: [promotor]
         })
-        
+
+
+
     } catch (error) {
         return res.status(404).json({ message: "Error al crear el promotor" })
     }
@@ -51,9 +55,11 @@ export const updatePromotor = async (req, res) => {
             new: true
         });
         if (!data) return res.status(404).json({ message: 'data no found' })
+
+        const promotor = await Promotor.find() 
         res.json({
-            msg: ['Datos actualizados'],
-            data: [data]
+            msg: ['Datos actualizados', data],
+            data: [promotor]
         })
     } catch (error) {
         return res.status(404).json({ message: "data no found" })

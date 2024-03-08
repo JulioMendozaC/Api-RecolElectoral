@@ -18,9 +18,12 @@ export const createCoordinador = async (req, res) => {
 
         const newData = new Coordinador({ nombre })
         const saveDate = await newData.save()
+        const coordinador = await Coordinador.find()
 
-        res.json({
-            msg: ['Coordinador Creado', [saveDate]]
+
+         res.json({
+            msg: ['Coordinador Creado'],
+            data: [coordinador]
         })
         
     } catch (error) {

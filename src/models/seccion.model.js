@@ -8,7 +8,7 @@ const seccionSchema = new mongoose.Schema({
         unique: true,
     },
     numero: {
-        type: Number,
+        type: String,
         require: true,
         trim: true,
         unique: true,

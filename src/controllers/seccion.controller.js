@@ -10,13 +10,17 @@ export const getSecciones = async (req, res) => {
 export const createSeccion = async (req, res) => {
     try {
         const { nombre, numero} = req.body
+        const SeccionFound = await Seccion.findOne({ nombre })
 
+        if (SeccionFound)
+          return res.status(400).json(["La seccion ya esta registrada"])
 
         const newData = new Seccion({ nombre, numero })
         const saveDate = await newData.save()
-
+        const data = await Seccion.find()
         res.json({
-            msg: ['Seccion Creado', [saveDate]]
+            msg: ['Seccion Creado', [saveDate]],
+            data: data
         })
         
     } catch (error) {
