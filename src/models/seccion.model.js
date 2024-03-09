@@ -13,6 +13,12 @@ const seccionSchema = new mongoose.Schema({
         trim: true,
         unique: true,
     },
+    lista_nominal: {
+        type: String,
+        require: true,
+        trim: true,
+        unique: true,
+    },
 }, {
     timestamps: true
 });
