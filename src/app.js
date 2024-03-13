@@ -16,11 +16,7 @@ const app = express()
 
 connectDB()
 
-app.use(cors({
-    origin: process.env.URL_FORNT,
-    credentials: true
-
-}));
+app.use(cors());
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser());
