@@ -30,10 +30,10 @@ export const getAllData = async (req, res) => {
 
 export const createData = async (req, res) => {
 
-    const { nombre, apellido_p, apellido_m, curp, fecha_nacimiento, sexo, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor } = req.body
+    const { nombre, apellido_p, apellido_m, curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor } = req.body
 
     const newData = new Data({
-        nombre, apellido_p, apellido_m, curp, fecha_nacimiento, sexo, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor
+        nombre, apellido_p, apellido_m, curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor
     })
 
     const saveDate = await newData.save()

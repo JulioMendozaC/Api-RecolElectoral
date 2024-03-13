@@ -31,6 +31,11 @@ const dataSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    telefono: {
+        type: String,
+        require: true,
+        trim: true,
+    },
     calle: {
         type: String,
         require: true,

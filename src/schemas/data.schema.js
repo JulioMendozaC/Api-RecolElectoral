@@ -21,6 +21,9 @@ export const dataSchema = z.object({
       sexo: z.string({
         required_error: "El sexo es requerido",
       }),
+      telefono: z.string({
+        required_error: "El telefono es requerido",
+      }),
       calle: z.string({
         required_error: "La calle es requerida",
       }),
