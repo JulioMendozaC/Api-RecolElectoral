@@ -22,7 +22,6 @@ app.use(cors());
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser());
-app.use(noFound());
 
 
 
@@ -32,4 +31,5 @@ app.use('/api', promotorRoutes)
 app.use('/api', coordinadorRoutes)
 app.use('/api', seccionRoutes)
 
+app.use(noFound());
 export default app
