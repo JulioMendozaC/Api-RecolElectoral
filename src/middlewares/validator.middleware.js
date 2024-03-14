@@ -7,3 +7,8 @@ export const validationSchema = (schema) =>(req, res, next) =>{
         return res.status(400).json(error.errors.map((x) => x.message))
     }
 } 
+
+
+export const noFound = () =>(req, res, next) =>{
+    res.status(404).json({message: 'No found'})
+} 

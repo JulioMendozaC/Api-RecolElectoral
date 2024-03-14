@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
 import { connectDB } from './db.js'
+import { noFound } from './middlewares/validator.middleware.js'
+
 import authRoutes from './routes/auth.routes.js'
 import dataRoutes from './routes/data.routes.js'
 import promotorRoutes from './routes/promotor.routes.js'
@@ -20,6 +22,8 @@ app.use(cors());
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser());
+app.use(noFound());
+
 
 
 app.use('/api', authRoutes)
