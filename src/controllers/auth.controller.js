@@ -33,7 +33,7 @@ export const register = async (req, res) => {
     res.json({
       id: userSave.id,
       username: userSave.username,
-      email: userSave.email
+      email: userSave.email,
     })
 
   } catch (error) {
@@ -62,11 +62,15 @@ export const login = async (req, res) => {
 
     const token = await CreateAccessToken({id: userFound._id});
 
-    res.cookie("token", token);
+    res.cookie("token", token,
+    {
+      sameSite: 'none'
+    });
     res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
+      Token: token
     })
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -96,10 +100,10 @@ export const verifyToken = async (req, res) => {
   const { token } = req.cookies;
 
   jwt.verify(token, process.env.TOKEN_SECRET, async (err, user) => {
-    if (err) return res.status(401).json({ message: "Unauthorized" });
+    if (err) return res.status(401).json({ message: "Unauthorized erros" });
 
     const userFound = await User.findById(user.id);
-    if (!userFound) return res.status(401).json({ message: "Unauthorized" });
+    if (!userFound) return res.status(401).json({ message: "Unauthorized user no found" });
 
     return res.json({
       id: userFound._id,
