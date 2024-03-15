@@ -7,7 +7,7 @@ import 'dotenv/config'
 
 export const register = async (req, res) => {
 
-  const { email, password, username } = req.body
+  const { rol, password, username } = req.body
 
   const userFound = await User.findOne({ username })
 
@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 
     const newUser = new User({
       username,
-      email,
+      rol,
       password: hash,
     })
 
@@ -30,11 +30,7 @@ export const register = async (req, res) => {
 
     res.cookie("token", token);
 
-    res.json({
-      id: userSave.id,
-      username: userSave.username,
-      email: userSave.email,
-    })
+    res.json({msg :'Usuario registrado'})
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -60,19 +56,17 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = await CreateAccessToken({id: userFound._id});
+    const token = await CreateAccessToken({ id: userFound._id });
 
     res.cookie("token", token,
-    {
-      sameSite: 'none',
-      secure: true,
-      httpOnly: true
-    });
+      {
+        sameSite: 'none',
+        secure: true,
+      });
     res.json({
       id: userFound._id,
       username: userFound.username,
-      email: userFound.email,
-      Token: token
+      rol: userFound.rol,
     })
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -94,7 +88,6 @@ export const profile = async (req, res) => {
   return res.json({
     id: userFound._id,
     username: userFound.username,
-    email: userFound.email,
   });
 };
 
@@ -110,7 +103,54 @@ export const verifyToken = async (req, res) => {
     return res.json({
       id: userFound._id,
       username: userFound.username,
+      rol: userFound.rol,
       email: userFound.email,
     });
   });
+};
+
+export const Users = async (req, res) => {
+  const data = await User.find()
+  res.json(data)
+
+}
+
+export const OneUser = async (req, res) => {
+  try {
+    const data = await User.findById(req.params.id);
+    if (!data) return res.status(404).json({ message: 'data no found' })
+    res.json(data)
+  } catch (error) {
+    return res.status(404).json({ message: "data no found" })
+  }
+}
+
+export const deleteUser = async (req, res) => {
+  try {
+      const data = await User.findByIdAndDelete(req.params.id);
+      return res.json({
+          msg: ['Datos eliminados correctament']
+      })
+
+  } catch (error) {
+      return res.status(404).json({ message: "data no found" })
+
+  }
+};
+
+
+export const updateUser = async (req, res) => {
+  try {
+      const data = await User.findByIdAndUpdate(req.params.id, req.body, {
+          new: true
+      });
+      if (!data) return res.status(404).json({ message: 'data no found' })
+      res.json({
+          msg: ['Datos actualizados'],
+          data: [data]
+      })
+  } catch (error) {
+      return res.status(404).json({ message: "data no found" })
+
+  }
 };

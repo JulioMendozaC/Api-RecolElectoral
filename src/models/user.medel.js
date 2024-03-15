@@ -6,11 +6,10 @@ const userSchema = new mongoose.Schema({
       require: true,
       trim: true,
   },
-  email: {
+  rol: {
       type: String,
       require: true,
       trim: true,
-      unique: true,
   },
   password: {
       type: String,
