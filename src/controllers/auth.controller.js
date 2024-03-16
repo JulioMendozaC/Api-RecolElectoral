@@ -104,6 +104,7 @@ export const verifyToken = async (req, res) => {
       id: userFound._id,
       username: userFound.username,
       rol: userFound.rol,
+      password: userFound.password,
       email: userFound.email,
     });
   });
