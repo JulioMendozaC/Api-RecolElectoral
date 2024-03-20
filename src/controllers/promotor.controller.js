@@ -9,8 +9,12 @@ export const getPromotores = async (req, res) => {
 
 export const createPromotor = async (req, res) => {
     try {
-        const { nombre } = req.body
-        const newData = new Promotor({ nombre })
+        const { nombre, apellido_pat, apellido_mat } = req.body
+
+
+        const nombreCompleto = `${nombre} ${apellido_pat} ${apellido_mat}`
+
+        const newData = new Promotor({ nombre, apellido_pat, apellido_mat, nombreCompleto })
         const saveDate = await newData.save()
         const promotor = await Promotor.find()
 
@@ -51,12 +55,16 @@ export const deletePromotor = async (req, res) => {
 
 export const updatePromotor = async (req, res) => {
     try {
-        const data = await Promotor.findByIdAndUpdate(req.params.id, req.body, {
+        const { id } = req.params
+        const { nombre, apellido_pat, apellido_mat } = req.body
+        const nombreCompleto = `${nombre} ${apellido_pat} ${apellido_mat}`
+
+        const data = await Promotor.findByIdAndUpdate(id, {nombre, apellido_pat, apellido_mat, nombreCompleto}, {
             new: true
         });
         if (!data) return res.status(404).json({ message: 'data no found' })
 
-        const promotor = await Promotor.find() 
+        const promotor = await Promotor.find()
         res.json({
             msg: ['Datos actualizados', data],
             data: [promotor]

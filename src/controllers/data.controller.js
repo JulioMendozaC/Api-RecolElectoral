@@ -32,8 +32,10 @@ export const createData = async (req, res) => {
 
     const { nombre, apellido_p, apellido_m, curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor } = req.body
 
+    const nombreCompleto = `${nombre} ${apellido_p} ${apellido_m}`
+
     const newData = new Data({
-        nombre, apellido_p, apellido_m, curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor
+        nombre, apellido_p, apellido_m, nombreCompleto,curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor
     })
 
     const saveDate = await newData.save()
@@ -57,24 +59,6 @@ export const getData = async (req, res) => {
     }
 }
 
-
-export const getDataBySeccion = async (req, res) => {
-
-    const { seccion } = req.body
-
-    const data = await Data.find({ seccion })
-    res.json(data)
-}
-
-export const getDataByClave = async (req, res) => {
-
-    const { clave_electoral } = req.body
-
-    const data = await Data.find({ clave_electoral })
-    res.json(data)
-}
-
-
 export const deleteData = async (req, res) => {
     try {
         const data = await Data.findByIdAndDelete(req.params.id);
@@ -90,8 +74,13 @@ export const deleteData = async (req, res) => {
 
 
 export const updatedata = async (req, res) => {
+    const { id } = req.params
+    const { nombre, apellido_p, apellido_m,curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor } = req.body
+
+    const nombreCompleto = `${nombre} ${apellido_p} ${apellido_m}`
+
     try {
-        const data = await Data.findByIdAndUpdate(req.params.id, req.body, {
+        const data = await Data.findByIdAndUpdate(id, {nombre, apellido_p, apellido_m, nombreCompleto, curp, fecha_nacimiento, sexo, telefono, calle, No_ext, No_int, colonia_barrio, codigo_postal, clave_electoral, seccion, fecha_vigencia, coordinador, promotor}, {
             new: true
         });
         if (!data) return res.status(404).json({ message: 'data no found' })

@@ -9,23 +9,26 @@ export const getCoordinadores = async (req, res) => {
 
 export const createCoordinador = async (req, res) => {
     try {
-        const { nombre } = req.body
+        const { nombre, apellido_pat, apellido_mat } = req.body
+        const nombreCompleto = `${nombre} ${apellido_pat} ${apellido_mat}`
 
         const coordinadorFound = await Coordinador.findOne({ nombre })
 
         if (coordinadorFound)
-          return res.status(400).json(["El coordinador ya existe"])
+            return res.status(400).json(["El coordinador ya existe"])
 
-        const newData = new Coordinador({ nombre })
+
+
+        const newData = new Coordinador({ nombre, apellido_pat, apellido_mat, nombreCompleto })
         const saveDate = await newData.save()
         const coordinador = await Coordinador.find()
 
 
-         res.json({
+        res.json({
             msg: ['Coordinador Creado'],
             data: [coordinador]
         })
-        
+
     } catch (error) {
         return res.status(404).json({ message: "Error al crear el Coordinador" })
     }
@@ -55,8 +58,13 @@ export const deleteCoordinador = async (req, res) => {
 };
 
 export const updateCoordinador = async (req, res) => {
+
+    const { id } = req.params
+    const { nombre, apellido_pat, apellido_mat } = req.body
+    const nombreCompleto = `${nombre} ${apellido_pat} ${apellido_mat}`
+
     try {
-        const data = await Coordinador.findByIdAndUpdate(req.params.id, req.body, {
+        const data = await Coordinador.findByIdAndUpdate(id, { nombre, apellido_pat, apellido_mat, nombreCompleto }, {
             new: true
         });
         if (!data) return res.status(404).json({ message: 'data no found' })

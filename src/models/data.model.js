@@ -16,6 +16,10 @@ const dataSchema = new mongoose.Schema({
         require: true,
         trim: true,
     },
+    nombreCompleto: {
+        type: String,
+        trim: true,
+      },
     curp: {
         type: String,
         require: true,
