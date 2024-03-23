@@ -30,7 +30,7 @@ export const register = async (req, res) => {
 
     res.cookie("token", token);
 
-    res.json({msg :'Usuario registrado'})
+    res.json({ msg: 'Usuario registrado' })
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -118,9 +118,12 @@ export const Users = async (req, res) => {
 
 export const OneUser = async (req, res) => {
   try {
-    const data = await User.findById(req.params.id);
+    const data = await User.findById(req.params.id)
+
     if (!data) return res.status(404).json({ message: 'data no found' })
+
     res.json(data)
+
   } catch (error) {
     return res.status(404).json({ message: "data no found" })
   }
@@ -128,13 +131,13 @@ export const OneUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-      const data = await User.findByIdAndDelete(req.params.id);
-      return res.json({
-          msg: ['Datos eliminados correctament']
-      })
+    const data = await User.findByIdAndDelete(req.params.id);
+    return res.json({
+      msg: ['Datos eliminados correctament']
+    })
 
   } catch (error) {
-      return res.status(404).json({ message: "data no found" })
+    return res.status(404).json({ message: "data no found" })
 
   }
 };
@@ -142,16 +145,28 @@ export const deleteUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-      const data = await User.findByIdAndUpdate(req.params.id, req.body, {
-          new: true
-      });
-      if (!data) return res.status(404).json({ message: 'data no found' })
-      res.json({
-          msg: ['Datos actualizados'],
-          data: [data]
-      })
+
+    const { id } = req.params
+    const { rol, password, username } = req.body
+
+    const hash = await bcrypt.hash(password, 10)
+
+    const data = await User.findByIdAndUpdate(id, {
+      rol,
+      password: hash,
+      username
+    }, {
+      new: true
+    });
+    if (!data) return res.status(404).json({ message: 'data no found' })
+
+    res.json({
+      msg: ['Datos actualizados'],
+      data: [data]
+    })
   } catch (error) {
-      return res.status(404).json({ message: "data no found" })
+    return res.status(404).json({ message: "data no found" })
 
   }
 };
+

@@ -7,7 +7,7 @@ export const getEstadisticas = async (req, res) => {
     try {
 
         const data = await Data.find({}, 'sexo fecha_nacimiento seccion');
-        const lista_nominal = await Seccion.find({}, 'nombre lista_nominal')
+        const lista_nominal = await Seccion.find()
 
         res.json({
             Data: data,
@@ -24,10 +24,9 @@ export const getEstadisticasSeccion = async (req, res) => {
     try {
 
         const { seccion } = req.body
-        let nombre = seccion
 
         const data = await Data.find({ seccion }, 'sexo fecha_nacimiento seccion ');
-        const lista_nominal = await Seccion.findOne({ nombre }, 'nombre lista_nominal')
+        const lista_nominal = await Seccion.findOne()
 
         res.json({
             msg: ['Seccion encontrada'],

@@ -95,3 +95,15 @@ export const updatedata = async (req, res) => {
 };
 
 
+export const deleteAllData = async (req, res) => {
+    try {
+       const data = await Data.deleteMany();
+        return res.json({
+            msg: ['Datos eliminados correctament']
+        })
+
+    } catch (error) {
+        return res.status(404).json({ message: "action no found" })
+
+    }
+};

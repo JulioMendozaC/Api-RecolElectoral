@@ -5,25 +5,41 @@ const dataSchema = new mongoose.Schema({
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
+        
     },
     apellido_p: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     apellido_m: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     nombreCompleto: {
         type: String,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
       },
     curp: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     fecha_nacimiento: {
         type: Date,
@@ -34,6 +50,9 @@ const dataSchema = new mongoose.Schema({
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     telefono: {
         type: String,
@@ -44,21 +63,33 @@ const dataSchema = new mongoose.Schema({
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     No_ext: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     No_int: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     colonia_barrio: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     codigo_postal: {
         type: String,
@@ -69,26 +100,40 @@ const dataSchema = new mongoose.Schema({
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     seccion: {
         type: String,
         require: true,
-        trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     fecha_vigencia: {
-        type: Date,
-        // require: true,
+        type: String,
+        require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     promotor: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     coordinador: {
         type: String,
         require: true,
         trim: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
  
    

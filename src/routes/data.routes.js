@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getDatas, getData, getAllData, createData, deleteData, updatedata } from "../controllers/data.controller.js";
+import { getDatas, getData, getAllData, createData, deleteData, deleteAllData, updatedata } from "../controllers/data.controller.js";
 import { getEstadisticas, getEstadisticasSeccion } from "../controllers/estadisticas.controller.js";
 import { authRequiered } from '../middlewares/validateToken.js'
 import { validationSchema } from "../middlewares/validator.middleware.js";
@@ -16,7 +16,7 @@ router.post('/data', authRequiered, validationSchema(dataSchema), createData)
 
 router.delete('/data/:id', authRequiered, deleteData)
 
-router.put('/data/:id', authRequiered,validationSchema(dataSchema), updatedata)
+router.put('/data/:id', authRequiered, validationSchema(dataSchema), updatedata)
 
 
 // ? Estadisticas
@@ -25,6 +25,8 @@ router.get('/data-all', authRequiered, getAllData)
 router.get('/data-estadisticas', authRequiered, getEstadisticas)
 
 router.post('/data-estadisticas', authRequiered, getEstadisticasSeccion)
+
+router.delete('/data-delete-all', authRequiered, deleteAllData)
 
 
 

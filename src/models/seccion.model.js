@@ -6,6 +6,9 @@ const seccionSchema = new mongoose.Schema({
         require: true,
         trim: true,
         unique: true,
+        set: function (valor) {
+            return valor.toUpperCase();
+        }
     },
     numero: {
         type: String,
@@ -18,6 +21,12 @@ const seccionSchema = new mongoose.Schema({
         require: true,
         trim: true,
         unique: true,
+    },
+    nombre_clave: {
+        type: String,
+        require: true,
+        unique: true,
+       
     },
 }, {
     timestamps: true

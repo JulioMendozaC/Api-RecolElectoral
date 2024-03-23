@@ -10,6 +10,7 @@ export const getSecciones = async (req, res) => {
 export const createSeccion = async (req, res) => {
     try {
         const { nombre, numero, lista_nominal} = req.body
+        const nombre_clave = `${numero} - ${nombre}`
         const SeccionFound = await Seccion.findOne({ nombre })
 
         if (SeccionFound)
@@ -20,7 +21,7 @@ export const createSeccion = async (req, res) => {
         if (NumeroFound)
           return res.status(400).json(["El numero de seccion ya esta registrado"])
 
-        const newData = new Seccion({ nombre, numero, lista_nominal })
+        const newData = new Seccion({ nombre, numero, lista_nominal, nombre_clave})
         const saveDate = await newData.save()
         const data = await Seccion.find()
         res.json({
@@ -58,7 +59,11 @@ export const deleteSeccion = async (req, res) => {
 
 export const updateSeccion = async (req, res) => {
     try {
-        const data = await Seccion.findByIdAndUpdate(req.params.id, req.body, {
+        const { id } = req.params
+        const { nombre, numero, lista_nominal} = req.body
+        const nombre_clave = `${numero} - ${nombre}`
+
+        const data = await Seccion.findByIdAndUpdate(id, {nombre, numero, lista_nominal, nombre_clave}, {
             new: true
         });
         if (!data) return res.status(404).json({ message: 'data no found' })
