@@ -8,7 +8,7 @@ import { dataSchema } from "../schemas/data.schema.js";
 const router = Router()
 
 // ? Recoleccion
-router.get('/data', authRequiered, getDatas)
+router.get('/data', getDatas)
 
 router.get('/data/:id', authRequiered, getData)
 
@@ -22,9 +22,9 @@ router.put('/data/:id', authRequiered, validationSchema(dataSchema), updatedata)
 // ? Estadisticas
 router.get('/data-all', authRequiered, getAllData)
 
-router.get('/data-estadisticas', authRequiered, getEstadisticas)
+router.get('/data-estadisticas', getEstadisticas)
 
-router.post('/data-estadisticas', authRequiered, getEstadisticasSeccion)
+router.post('/data-estadisticas', getEstadisticasSeccion)
 
 router.delete('/data-delete-all', authRequiered, deleteAllData)
 

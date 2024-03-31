@@ -12,7 +12,9 @@ export const register = async (req, res) => {
   const userFound = await User.findOne({ username })
 
   if (userFound)
-    return res.status(400).json(["El usuarios ya esa en uso"])
+    return res.status(400).json({
+  message:["El usuarios ya esa en uso"]
+})
 
   try {
 

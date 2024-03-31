@@ -21,19 +21,26 @@ export const getEstadisticas = async (req, res) => {
 
 export const getEstadisticasSeccion = async (req, res) => {
 
+
     try {
-
-        const { seccion } = req.body
-
+        const { seccion, nombre_clave } = req.body
         const data = await Data.find({ seccion }, 'sexo fecha_nacimiento seccion ');
-        const lista_nominal = await Seccion.findOne()
+        if (data.length != 0) {
+            const lista_nominal = await Seccion.find({ nombre_clave })
 
-        res.json({
-            msg: ['Seccion encontrada'],
-            Data: data,
-            Seccion: lista_nominal
+            res.json({
+                msg: ['Seccion encontrada'],
+                Data: data,
+                Seccion: lista_nominal
 
-        })
+            })
+        }
+        else {
+            return res.status(400).json({
+                message: "No hay registros en la seccion"
+            })
+        }
+
 
     } catch (
     error) {
